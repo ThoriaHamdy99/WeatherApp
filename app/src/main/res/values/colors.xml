@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="darkColor">#24142c</color>
+    <color name="statusColor1">#53556e</color>
+    <color name="statusColor2">#33415E</color>
+    <color name="bodyColor">#243657</color>
+    <color name="bodyBlue">#338ADC</color>
+    <color name="lightBlue">#69A6E5</color>
+    <color name="darkBlue">#00008b</color>
+    <color name="bodyColorTransparent">#73243657</color>
+    <color name="bodyColor2">#316594</color>
+    <color name="bodyColor2Transparent">#15000000</color>
+
 </resources>
