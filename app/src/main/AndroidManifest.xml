@@ -19,7 +19,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
-            android:name=".ui.main.HomeActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="Home">
             <intent-filter>
