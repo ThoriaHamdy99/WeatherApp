@@ -4,35 +4,49 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.android.weatherapp.model.local_source.LocalDataSourceInterface
 import com.example.android.weatherapp.model.remote_source.RemoteDataSourceInterface
-import com.example.android.weatherapp.model.weather_models.CurrentWeather
+import com.example.android.weatherapp.model.data.CurrentWeather
+import com.example.android.weatherapp.services.SharedPreferencesProvider
 
-class Repository(remoteInterface: RemoteDataSourceInterface,
+class Repository(var remoteInterface: RemoteDataSourceInterface,
                  var localInterface: LocalDataSourceInterface,
-                 var context: Context?):RepositoryInterface{
+                 var context: Context?,
+                var sharedPref: SharedPreferencesProvider):RepositoryInterface{
 
     companion object{
         private var instance: Repository? = null
         fun getInstance(remoteInterface:RemoteDataSourceInterface,
-                        localInterface: LocalDataSourceInterface, context: Context?): Repository {
+                        localInterface: LocalDataSourceInterface, context: Context?,
+                        sharedPref: SharedPreferencesProvider): Repository {
 
-            return instance?: Repository(remoteInterface,localInterface,context)
+            return instance?: Repository(remoteInterface,localInterface,context, sharedPref = sharedPref)
         }
     }
 
-    override suspend fun getWeather(
-        lat: String,
-        lon: String,
-        units: String,
-        lang: String,
-    ): CurrentWeather {
-        TODO("Not yet implemented")
+
+
+    //-----------Remote Source Functions------------
+    override suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather? {
+        return remoteInterface.fetchWeatherData(sharedPref)
+    }
+    //-----------------------------------------------
+
+
+    //------------Local Source Functions-----------
+    override suspend fun insert(currentWeather: CurrentWeather?) {
+        localInterface.insert(currentWeather)
     }
 
-    override fun insert(weather: CurrentWeather) {
-        TODO("Not yet implemented")
+    override suspend fun getWeather(lat: String?, lon: String?): LiveData<CurrentWeather>? {
+        return localInterface.getWeather(lat, lon)
     }
 
-    override val getWeather: LiveData<CurrentWeather>
-        get() = TODO("Not yet implemented")
+    override suspend fun deleteWeather(lat: String, lon: String) {
+        localInterface.deleteWeather(lat, lon)
+    }
+
+    override suspend fun deleteAll() {
+        localInterface.deleteAll()
+    }
+    //---------------------------------------
 
 }

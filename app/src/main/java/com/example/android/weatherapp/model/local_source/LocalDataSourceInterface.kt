@@ -1,9 +1,11 @@
 package com.example.android.weatherapp.model.local_source
 
 import androidx.lifecycle.LiveData
-import com.example.android.weatherapp.model.weather_models.CurrentWeather
+import com.example.android.weatherapp.model.data.CurrentWeather
 
 interface LocalDataSourceInterface {
-    fun insert(weather: CurrentWeather)
-    val getWeather: LiveData<CurrentWeather>
+    suspend fun insert(currentWeather: CurrentWeather?)
+    fun getWeather(lat: String?, lon: String?): LiveData<CurrentWeather>?
+    suspend fun deleteWeather(lat:String , lng:String)
+    suspend fun deleteAll()
 }

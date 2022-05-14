@@ -16,7 +16,8 @@
     <color name="lightBlue">#69A6E5</color>
     <color name="darkBlue">#00008b</color>
     <color name="bodyColorTransparent">#73243657</color>
-    <color name="bodyColor2">#316594</color>
+    <color name="bodyColor2">#01669E</color><!-- #243755 -->
     <color name="bodyColor2Transparent">#15000000</color>
-
+    <color name="textColor">#FFFFFFFF</color>
+    <color name="iconColor">#FFFFFFFF</color>
 </resources>

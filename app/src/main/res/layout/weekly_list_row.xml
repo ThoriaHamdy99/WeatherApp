@@ -23,7 +23,7 @@
             android:layout_marginStart="30dp"
             android:gravity="center"
             android:textSize="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor"
             android:text="Tomorrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
             android:gravity="center"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor"
             android:text="Clear sky"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/weakly_row_image"/>
@@ -52,7 +52,7 @@
             android:gravity="center"
             android:layout_marginRight="30dp"
             android:textSize="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor"
             android:text="23/13 C"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

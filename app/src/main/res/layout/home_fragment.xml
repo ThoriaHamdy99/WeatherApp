@@ -23,9 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:text="Giza Governorate"
-                android:textColor="@color/white"
+                android:textColor="@color/textColor"
                 android:textSize="30sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -35,9 +35,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:text="Fri, 26 Feb"
-                android:textColor="@color/white"
+                android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/home_weather_address"
                 app:layout_constraintStart_toStartOf="@id/home_weather_address"/>
@@ -63,7 +63,7 @@
                         android:layout_marginLeft="40dp"
                         android:layout_marginTop="20dp"
                         android:text="Clear sky"
-                        android:textColor="@color/white"
+                        android:textColor="@color/textColor"
                         android:textSize="30sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/textColor"
                         android:text="25"
                         android:textSize="130sp"
                         app:layout_constraintTop_toBottomOf="@+id/home_weather_temp"
@@ -150,7 +150,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="1021 hpa"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_pressure_image" />
@@ -162,7 +162,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="Pressure"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="18sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_pressure_status" />
@@ -189,7 +189,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="77 %"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_humidity_image" />
@@ -201,7 +201,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="Humidity"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="18sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_humidity_status" />
@@ -228,7 +228,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="2.06 m/s"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_wind_image" />
@@ -240,7 +240,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="Wind"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="18sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_wind_status" />
@@ -276,7 +276,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="0%"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_cloud_image" />
@@ -288,7 +288,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="Cloud"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="18sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_cloud_status" />
@@ -315,7 +315,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="0.0"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_ultraViolet_image" />
@@ -327,7 +327,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="Ultra Violet"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="18sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_ultraViolet_status" />
@@ -354,7 +354,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="6000m"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_visibility_image" />
@@ -366,7 +366,7 @@
                                 android:layout_margin="5dp"
                                 android:gravity="center"
                                 android:text="Visibility"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColor"
                                 android:textSize="18sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_visibility_status" />
