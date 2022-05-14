@@ -5,13 +5,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.android.weatherapp.model.weather_models.CurrentWeather
+import com.example.android.weatherapp.model.data.CurrentWeather
 
 @Dao
 interface WeatherDAO {
-    @get:Query("SELECT * From weather")
-    val getWeather: LiveData<CurrentWeather>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(weather: CurrentWeather)
+    suspend fun insert(currentWeather: CurrentWeather?)
+
+    @Query("SELECT * From CurrentWeather WHERE lat=:lat AND lon=:lon")
+    fun getWeather(lat: String?, lon: String?): LiveData<CurrentWeather>
+
+    @Query("Delete from CurrentWeather WHERE lat=:lat AND lon=:lng  ")
+    suspend fun deleteWeather(lat:String , lng:String)
+
+    @Query("Delete  from CurrentWeather ")
+    suspend fun deleteAll()
 }

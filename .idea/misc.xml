@@ -10,6 +10,7 @@
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/layout/activity_splash.xml" value="0.223731884057971" />
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/layout/daily_list_row.xml" value="0.4" />
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/layout/daily_row.xml" value="0.14945652173913043" />
+        <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/layout/fragment_alerts.xml" value="0.121875" />
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/layout/fragment_favourites.xml" value="0.22780797101449277" />
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/layout/fragment_settings.xml" value="0.2421875" />
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/layout/home_fragment.xml" value="0.2" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.25833333333333336" />
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.25833333333333336" />
         <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/mipmap-anydpi-v26/ic_launcherr.webp.xml" value="0.19166666666666668" />
+        <entry key="..\:/Android_Kotlin_Project_WeatherApp/WeatherApp/app/src/main/res/mipmap-anydpi-v26/weather_icon.xml" value="0.13802083333333334" />
       </map>
     </option>
   </component>

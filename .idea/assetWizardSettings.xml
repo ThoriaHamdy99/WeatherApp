@@ -69,6 +69,7 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\THORAY~1\AppData\Local\Temp\ic_android_black_24dp.xml" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -80,7 +81,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="E:\Android_Kotlin_Project_WeatherApp\WeatherApp\app\src\main\res\mipmap\logo2.jpg" />
+                                                <entry key="imagePath" value="E:\Android_Kotlin_Project_WeatherApp\WeatherApp\app\src\main\res\mipmap-xxhdpi\weather_icon.jpeg" />
+                                                <entry key="scalingPercent" value="99" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -92,6 +95,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -103,6 +107,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -113,7 +118,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="243657" />
+                                      <entry key="backgroundColor" value="ffffff" />
+                                      <entry key="outputName" value="weather_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
