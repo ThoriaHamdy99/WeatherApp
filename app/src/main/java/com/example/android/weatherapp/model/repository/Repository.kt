@@ -24,8 +24,11 @@ class Repository(var remoteInterface: RemoteDataSourceInterface,
         }
     }
 
-//    fun getWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather{
-//        if (sharedPref.latLong)
+//    override suspend fun getWeatherData(): CurrentWeather?{
+//        if(sharedPref.isTheInternetEnabled){
+//            return fetchWeatherData()
+//        }
+//        return getWeather(sharedPref.latLong[0], sharedPref.latLong[1])
 //    }
 
 
@@ -41,12 +44,12 @@ class Repository(var remoteInterface: RemoteDataSourceInterface,
         localInterface.insert(currentWeather)
     }
 
-    override suspend fun getWeather(lat: String?, lon: String?): LiveData<CurrentWeather>? {
-        return localInterface.getWeather(lat, lon)
+    override suspend fun getWeather(): LiveData<CurrentWeather>? {
+        return localInterface.getWeather()
     }
 
-    override suspend fun deleteWeather(lat: String, lon: String) {
-        localInterface.deleteWeather(lat, lon)
+    override suspend fun deleteWeather() {
+        localInterface.deleteWeather()
     }
 
     override suspend fun deleteAll() {

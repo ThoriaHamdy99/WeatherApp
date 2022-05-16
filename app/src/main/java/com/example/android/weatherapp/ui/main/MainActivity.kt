@@ -118,14 +118,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
-            if(capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                return true
+            when  {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                    sharedPref.setIsTheInternetEnabled(true)
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                    sharedPref.setIsTheInternetEnabled(true)
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                    sharedPref.setIsTheInternetEnabled(true)
+                    return true
+                }
             }
         }
+        sharedPref.setIsTheInternetEnabled(false)
         return false
     }
 
@@ -219,7 +227,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                                     var sharedPreferencesProvider = SharedPreferencesProvider(this)
                                     sharedPreferencesProvider.setLatLong(location.latitude.toString(),
                                         location.longitude.toString())
-                                    Log.i("RESPONSE_API", "lat = ${sharedPref.latLong[0]}, Lon = ${sharedPref.latLong[1]}")
+                                    Log.i("GET LOCATION ON ACTIVITY", "lat = ${sharedPref.latLong[0]}, Lon = ${sharedPref.latLong[1]}")
                                 } catch (e: IOException) {
                                     Toast.makeText(
                                         this,

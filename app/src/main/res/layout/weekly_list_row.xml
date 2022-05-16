@@ -37,6 +37,7 @@
             app:layout_constraintStart_toEndOf="@+id/weakly_row_title"/>
 
         <TextView
+            android:id="@+id/weekly_row_status"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -47,6 +48,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/weakly_row_image"/>
         <TextView
+            android:id="@+id/weekly_row_temp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"

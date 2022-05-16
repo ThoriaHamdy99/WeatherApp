@@ -58,6 +58,16 @@ class SharedPreferencesProvider(var context: Context?) {
 
     /***********************************************************************************************
      */
+
+    fun setIsTheInternetEnabled(isFirstTime: Boolean){
+        editor.putBoolean(IS_THE_INTERNET_ENABLED, isFirstTime)
+        editor.commit()
+    }
+
+    val isTheInternetEnabled: Boolean
+        get()= pref.getBoolean(IS_THE_INTERNET_ENABLED, false)
+
+
     fun setFirstTimeLaunch1(isFirstTime: Boolean){
         editor.putBoolean(IS_FIRST_TIME_LAUNCH_ONE, isFirstTime)
         editor.commit()
