@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import com.example.android.weatherapp.model.local_source.LocalDataSourceInterface
 import com.example.android.weatherapp.model.remote_source.RemoteDataSourceInterface
 import com.example.android.weatherapp.model.data.CurrentWeather
+import com.example.android.weatherapp.model.local_source.LocalDataSource
+import com.example.android.weatherapp.model.remote_source.RemoteDataSource
 import com.example.android.weatherapp.services.SharedPreferencesProvider
 
 class Repository(var remoteInterface: RemoteDataSourceInterface,
@@ -14,18 +16,21 @@ class Repository(var remoteInterface: RemoteDataSourceInterface,
 
     companion object{
         private var instance: Repository? = null
-        fun getInstance(remoteInterface:RemoteDataSourceInterface,
-                        localInterface: LocalDataSourceInterface, context: Context?,
+        fun getInstance(context: Context?,
                         sharedPref: SharedPreferencesProvider): Repository {
 
-            return instance?: Repository(remoteInterface,localInterface,context, sharedPref = sharedPref)
+            return instance?: Repository(RemoteDataSource(context),LocalDataSource(context),
+                context, sharedPref = sharedPref)
         }
     }
 
+//    fun getWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather{
+//        if (sharedPref.latLong)
+//    }
 
 
     //-----------Remote Source Functions------------
-    override suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather? {
+    override suspend fun fetchWeatherData(): CurrentWeather? {
         return remoteInterface.fetchWeatherData(sharedPref)
     }
     //-----------------------------------------------

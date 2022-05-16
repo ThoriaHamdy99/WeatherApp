@@ -9,5 +9,5 @@ interface RepositoryInterface {
     suspend fun getWeather(lat: String?, lon: String?): LiveData<CurrentWeather>?
     suspend fun deleteWeather(lat:String , lng:String)
     suspend fun deleteAll()
-    suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather?
+    suspend fun fetchWeatherData(): CurrentWeather?
 }
