@@ -1,19 +1,15 @@
 package com.example.android.weatherapp.model.remote_source
 
-import android.app.Application
+import android.content.Context
 import android.util.Log
-import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
 import com.example.android.weatherapp.model.data.CurrentWeather
 import com.example.android.weatherapp.model.data.TempAndWindSpeedUnit
 import com.example.android.weatherapp.services.SharedPreferencesProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import retrofit2.Response
 
-class RemoteDataSource(val application: Application): RemoteDataSourceInterface {
+class RemoteDataSource(val context: Context?): RemoteDataSourceInterface {
 
-    private val Api_Key = "fc9624bf360991a83e6c82fa2996bec3"
+    private val API_KEY = "fc9624bf360991a83e6c82fa2996bec3"
 
     override suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather? {
         val latLong = sharedPref.latLong
@@ -30,12 +26,17 @@ class RemoteDataSource(val application: Application): RemoteDataSourceInterface 
             TempAndWindSpeedUnit.WindSpeedUnit = "m/s"
         }
         val response = WeatherClient.getWeatherService().getCurrentWeather(
-            latPref, lonPref, "minutely", unit, Api_Key)
-        if (response.isSuccessful)
-            return response.body()
-        else
-            return null
-        Log.d("responseeeeeeee", latPref + unit + "--------" + lonPref)
+            latPref, lonPref, "minutely", unit, "en", API_KEY)
 
+        if (response.isSuccessful){
+            Log.i("RESPONSE_API", "My response" + response.body().toString())
+            Log.i("RESPONSE_API", "lat = ${sharedPref.latLong[0]}, Lon = ${sharedPref.latLong[1]}")
+            return response.body()
+        }
+        else{
+            Log.i("RESPONSE_API", "My response" + response.body().toString())
+            Log.i("RESPONSE_API", "lat = ${sharedPref.latLong[0]}, Lon = ${sharedPref.latLong[1]}")
+            return null
+        }
     }
 }
