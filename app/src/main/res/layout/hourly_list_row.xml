@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="110dp"
+    android:layout_height="200dp"
+    app:cardCornerRadius="30dp"
+    android:paddingHorizontal="8dp"
+    android:backgroundTint="@color/bodyColor2Transparent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bodyColor2Transparent">
+
+        <TextView
+            android:id="@+id/hourly_row_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/hourly_row_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="6 AM"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/hourly_row_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/hourly_row_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="13ْ  C"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/hourly_row_image"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

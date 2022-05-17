@@ -9,14 +9,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bodyColor2"
+        android:layout_margin="5dp"
         tools:ignore="SpeakableTextPresentCheck">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_weather_cardView"
+            android:id="@+id/home_weather_constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bodyColor2">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/home_weather_address"
@@ -43,6 +42,7 @@
                 app:layout_constraintStart_toStartOf="@id/home_weather_address"/>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/home_weather_cardView"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginStart="8dp"
@@ -57,7 +57,7 @@
                     android:background="@color/bodyColor2Transparent">
 
                     <TextView
-                        android:id="@+id/home_weather_temp"
+                        android:id="@+id/home_weather_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
@@ -72,54 +72,57 @@
                         android:id="@+id/home_weather_image"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_marginRight="40dp"
+                        android:scaleType="fitXY"
+                        android:layout_marginRight="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/home_weather_temp"
+                        app:layout_constraintTop_toTopOf="@id/home_weather_status"
                          />
                     <TextView
-                        android:id="@+id/home_weather_status"
+                        android:id="@+id/home_weather_temp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:textColor="@color/textColor"
                         android:text="25"
-                        android:textSize="130sp"
-                        app:layout_constraintTop_toBottomOf="@+id/home_weather_temp"
+                        android:textSize="80sp"
+                        app:layout_constraintTop_toBottomOf="@+id/home_weather_status"
                         app:layout_constraintStart_toStartOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_daily_recyclerView"
+                android:id="@+id/home_hourly_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/home_weather_cardView" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_weekly_recyclerView"
+                android:id="@+id/home_daily_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_daily_recyclerView" />
+                app:layout_constraintTop_toBottomOf="@id/home_hourly_recyclerView" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="280dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginTop="50dp"
                 android:backgroundTint="@color/bodyColor2"
                 app:cardCornerRadius="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_weekly_recyclerView">
+                app:layout_constraintTop_toBottomOf="@id/home_daily_recyclerView">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:background="@color/bodyColor2Transparent"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -129,29 +132,30 @@
                         android:orientation="horizontal"
                         android:weightSum="3">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/home_pressure_image"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="40dp"
-                                android:layout_marginTop="20dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:paddingTop="5dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/pressure"
+                                android:layout_above="@+id/home_pressure_status" />
 
                             <TextView
                                 android:id="@+id/home_pressure_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
                                 android:gravity="center"
+                                android:paddingTop="12dp"
+                                android:layout_centerInParent="true"
                                 android:text="1021 hpa"
                                 android:textColor="@color/textColor"
-                                android:textSize="20sp"
+                                android:textSize="13sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/home_pressure_image" />
 
@@ -159,92 +163,90 @@
                                 android:id="@+id/home_pressure_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
                                 android:gravity="center"
+                                android:paddingTop="5dp"
+                                android:layout_centerHorizontal="true"
                                 android:text="Pressure"
                                 android:textColor="@color/textColor"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_pressure_status" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:textSize="15sp"
+                                android:layout_below="@+id/home_pressure_status" />
+                        </RelativeLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/home_humidity_image"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="40dp"
-                                android:layout_marginTop="20dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:paddingTop="5dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_above="@+id/home_humidity_status"
+                                android:src="@mipmap/humidity" />
 
                             <TextView
                                 android:id="@+id/home_humidity_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
+                                android:layout_centerInParent="true"
                                 android:gravity="center"
                                 android:text="77 %"
                                 android:textColor="@color/textColor"
-                                android:textSize="20sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_humidity_image" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/home_humidity_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@+id/home_humidity_status"
                                 android:gravity="center"
                                 android:text="Humidity"
                                 android:textColor="@color/textColor"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_humidity_status" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:textSize="15sp" />
+                        </RelativeLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/home_wind_image"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="40dp"
-                                android:layout_marginTop="20dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:paddingTop="5dp"
+                                android:src="@mipmap/weather_windy"
+                                android:layout_above="@+id/home_wind_status"
+                                android:layout_centerHorizontal="true"/>
 
                             <TextView
                                 android:id="@+id/home_wind_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_centerInParent="true"
+                                android:paddingTop="5dp"
                                 android:gravity="center"
                                 android:text="2.06 m/s"
                                 android:textColor="@color/textColor"
-                                android:textSize="20sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_wind_image" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/home_wind_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
                                 android:gravity="center"
                                 android:text="Wind"
                                 android:textColor="@color/textColor"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_wind_status" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:textSize="15sp"
+                                android:layout_below="@+id/home_wind_status"
+                                android:layout_centerHorizontal="true"/>
+                        </RelativeLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -255,122 +257,119 @@
                         android:orientation="horizontal"
                         android:weightSum="3">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/home_cloud_image"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="40dp"
-                                android:layout_marginTop="20dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:paddingTop="5dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/cloud"
+                                android:layout_above="@+id/home_cloud_status"/>
 
                             <TextView
                                 android:id="@+id/home_cloud_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
                                 android:gravity="center"
+                                android:layout_centerInParent="true"
                                 android:text="0%"
                                 android:textColor="@color/textColor"
-                                android:textSize="20sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_cloud_image" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/home_cloud_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
+                                android:layout_centerHorizontal="true"
                                 android:gravity="center"
                                 android:text="Cloud"
                                 android:textColor="@color/textColor"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_cloud_status" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:textSize="15sp"
+                                android:layout_below="@+id/home_cloud_status"/>
+                        </RelativeLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/home_ultraViolet_image"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="40dp"
-                                android:layout_marginTop="20dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:paddingTop="5dp"
+                                android:src="@mipmap/ultra_violet"
+                                android:layout_centerHorizontal="true"
+                                android:layout_above="@+id/home_ultraViolet_status"/>
 
                             <TextView
                                 android:id="@+id/home_ultraViolet_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
                                 android:gravity="center"
                                 android:text="0.0"
                                 android:textColor="@color/textColor"
-                                android:textSize="20sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_ultraViolet_image" />
+                                android:textSize="13sp"
+                                android:layout_centerInParent="true"/>
 
                             <TextView
                                 android:id="@+id/home_ultraViolet_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
                                 android:gravity="center"
                                 android:text="Ultra Violet"
                                 android:textColor="@color/textColor"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_ultraViolet_status" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:textSize="15sp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@+id/home_ultraViolet_status" />
+                        </RelativeLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/home_visibility_image"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="40dp"
-                                android:layout_marginTop="20dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:paddingTop="5dp"
+                                android:src="@mipmap/visibility"
+                                android:layout_centerHorizontal="true"
+                                android:layout_above="@+id/home_visibility_status"/>
 
                             <TextView
                                 android:id="@+id/home_visibility_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
                                 android:gravity="center"
                                 android:text="6000m"
                                 android:textColor="@color/textColor"
-                                android:textSize="20sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_visibility_image" />
+                                android:textSize="13sp"
+                                android:layout_centerInParent="true"/>
 
                             <TextView
                                 android:id="@+id/home_visibility_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
                                 android:gravity="center"
                                 android:text="Visibility"
                                 android:textColor="@color/textColor"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/home_visibility_status" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:textSize="15sp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@+id/home_visibility_status" />
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

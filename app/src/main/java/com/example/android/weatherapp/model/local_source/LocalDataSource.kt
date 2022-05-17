@@ -22,13 +22,13 @@ class LocalDataSource(val context: Context?): LocalDataSourceInterface {
     }
 
     @WorkerThread
-    override fun getWeather(lat: String?, lon: String?): LiveData<CurrentWeather>? {
-        return weatherDao?.getWeather(lat, lon)
+    override fun getWeather(): LiveData<CurrentWeather>? {
+        return weatherDao?.getWeather()
     }
 
     @WorkerThread
-    override suspend fun deleteWeather(lat: String, lon: String) {
-        weatherDao?.deleteWeather(lat, lon)
+    override suspend fun deleteWeather() {
+        weatherDao?.deleteWeather()
     }
 
     @WorkerThread
