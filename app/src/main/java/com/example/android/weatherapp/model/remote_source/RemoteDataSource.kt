@@ -29,14 +29,15 @@ class RemoteDataSource(val context: Context?): RemoteDataSourceInterface {
         }
         val response = WeatherClient.getWeatherService().getCurrentWeather(
             latPref, lonPref, "minutely", unit, language!!, API_KEY)
+        //https://api.openweathermap.org/data/2.5/onecall?lat=30.0504826&lon=31.1601474&appid=fc9624bf360991a83e6c82fa2996bec3
 
         if (response.isSuccessful){
-            Log.i("RESPONSE_API", "My Success response = " + response.body().toString())
+            Log.i("RESPONSE_API", "Success response = " + response.body().toString())
             Log.i("RESPONSE_API", "lat = ${sharedPref.latLong[0]}, Lon = ${sharedPref.latLong[1]}")
             return response.body()
         }
         else{
-            Log.i("RESPONSE_API", "My Fail response = " + response.body().toString())
+            Log.i("RESPONSE_API", "Fail response = " + response.body().toString())
             Log.i("RESPONSE_API", "lat = ${sharedPref.latLong[0]}, Lon = ${sharedPref.latLong[1]}")
             return null
         }

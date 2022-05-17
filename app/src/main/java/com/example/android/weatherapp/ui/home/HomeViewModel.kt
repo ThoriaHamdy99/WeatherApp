@@ -25,13 +25,14 @@ class HomeViewModel(var repository: RepositoryInterface, var sharedPref: SharedP
 //        else{
 //            getWeatherFromDB()
 //        }
-        fetchWeatherData()
+        if (sharedPref.isTheInternetEnabled)
+            fetchWeatherData()
     }
     private fun fetchWeatherData(){
         viewModelScope.launch(Dispatchers.IO) {
             var response = repository.fetchWeatherData()
-            Log.i("Response_view_model", response.toString())
-            currentWeatherMutableLiveData.postValue(response!!)
+            Log.i("RESPONSE_VIEW_MODEL", response.toString())
+            currentWeatherMutableLiveData?.postValue(repository.fetchWeatherData())
 //            if(sharedPref.isFirstTimeLaunch1){
 //                sharedPref.setFirstTimeLaunch1(false)
 //            }

@@ -17,11 +17,12 @@ class HomeDailyAdapter(var context: Context): RecyclerView.Adapter<HomeDailyAdap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return DailyViewHolder(layoutInflater.inflate(R.layout.weekly_list_row, parent, false))
+        return DailyViewHolder(layoutInflater.inflate(R.layout.daily_list_row, parent, false))
     }
 
     fun setDailyList(daily: List<Daily>){
         this.daily = daily
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
@@ -33,7 +34,7 @@ class HomeDailyAdapter(var context: Context): RecyclerView.Adapter<HomeDailyAdap
 //        }
         holder.temp.text = daily[position].temp.day.toString()
         holder.status.text = daily[position].weather[0].description
-        val urlIcon = "http://openweathermap.org/img/wn/${daily[position].weather[0].icon}@2x.png"
+        val urlIcon = "https://openweathermap.org/img/wn/${daily[position].weather[0].icon}@2x.png"
         context?.let { Glide.with(it).asBitmap().load(urlIcon).into(holder.image) }
 
     }
@@ -43,13 +44,14 @@ class HomeDailyAdapter(var context: Context): RecyclerView.Adapter<HomeDailyAdap
     }
 
     override fun getItemCount(): Int {
+        var size = daily.size
         return daily.size
     }
 
     class DailyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var title: TextView = itemView.findViewById(R.id.weakly_row_title)
+        var title: TextView = itemView.findViewById(R.id.daily_row_title)
         var temp: TextView = itemView.findViewById(R.id.weekly_row_temp)
-        var image: ImageView = itemView.findViewById(R.id.weakly_row_image)
-        var status: TextView = itemView.findViewById(R.id.weekly_row_status)
+        var image: ImageView = itemView.findViewById(R.id.daily_row_image_view)
+        var status: TextView = itemView.findViewById(R.id.daily_row_status)
     }
 }

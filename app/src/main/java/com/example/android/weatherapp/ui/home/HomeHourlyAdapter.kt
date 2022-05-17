@@ -19,11 +19,12 @@ class HomeHourlyAdapter(var context: Context): RecyclerView.Adapter<HomeHourlyAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return HourlyViewHolder(layoutInflater.inflate(R.layout.daily_list_row, parent, false))
+        return HourlyViewHolder(layoutInflater.inflate(R.layout.hourly_list_row, parent, false))
     }
 
     fun setHourlyList(hourly: List<Hourly>){
         this.hourly = hourly
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: HourlyViewHolder, position: Int) {
@@ -37,19 +38,20 @@ class HomeHourlyAdapter(var context: Context): RecyclerView.Adapter<HomeHourlyAd
         }
         holder.temp.text = hourly[position].temp.toString()
 
-        val urlIcon = "http://openweathermap.org/img/wn/${hourly[position].weather[0].icon}@2x.png"
+        val urlIcon = "https://openweathermap.org/img/wn/${hourly[position].weather[0].icon}@2x.png"
 
         context?.let { Glide.with(it).asBitmap().load(urlIcon).into(holder.image) }
 
     }
 
     override fun getItemCount(): Int {
+        var size = hourly.size
         return hourly.size
     }
 
     class HourlyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var hour: TextView = itemView.findViewById(R.id.daily_row_hour)
-        var temp: TextView = itemView.findViewById(R.id.daily_row_temp)
-        var image: ImageView = itemView.findViewById(R.id.daily_row_image)
+        var hour: TextView = itemView.findViewById(R.id.hourly_row_hour)
+        var temp: TextView = itemView.findViewById(R.id.hourly_row_temp)
+        var image: ImageView = itemView.findViewById(R.id.hourly_row_image)
     }
 }
