@@ -18,6 +18,6 @@ interface WeatherDAO {
     @Query("Delete from CurrentWeather")
     suspend fun deleteWeather()
 
-    @Query("Delete  from CurrentWeather ")
+    @Query("Delete from CurrentWeather ")
     suspend fun deleteAll()
 }

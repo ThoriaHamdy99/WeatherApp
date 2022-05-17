@@ -17,6 +17,8 @@ class HomeViewModel(var repository: RepositoryInterface, var sharedPref: SharedP
     private var currentWeatherMutableLiveData : MutableLiveData<CurrentWeather> = MutableLiveData()
     var currentWeatherLiveData : LiveData<CurrentWeather> = currentWeatherMutableLiveData
 
+    lateinit var weatherFromDB: LiveData<CurrentWeather>
+
 
     init {
 //        if(sharedPref.isTheInternetEnabled){

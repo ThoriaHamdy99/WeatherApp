@@ -66,6 +66,10 @@ class HomeFragment : Fragment() {
         repository = Repository.getInstance(this.activity?.application, sharedPref = sharedPref)
 
         viewModel = ViewModelProvider(this, HomeViewModelFactory(repository, sharedPref))[HomeViewModel::class.java]
+
+        if(!sharedPref.isTheInternetEnabled && !sharedPref.setIsTheLocationEnabled){
+
+        }
         viewModel.currentWeatherLiveData?.observe(viewLifecycleOwner) {
             Log.i("RETURNED_WEATHER_DATA", "anyThing")
             Log.i("RETURNED_WEATHER_DATA", "LAT" + it.lat.toString() + "LON" + it.lon.toString())
