@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.example.android.weatherapp.model.local_source.LocalDataSourceInterface
 import com.example.android.weatherapp.model.remote_source.RemoteDataSourceInterface
 import com.example.android.weatherapp.model.data.CurrentWeather
+import com.example.android.weatherapp.model.data.Favourite
 import com.example.android.weatherapp.model.local_source.LocalDataSource
 import com.example.android.weatherapp.model.remote_source.RemoteDataSource
 import com.example.android.weatherapp.services.SharedPreferencesProvider
@@ -12,7 +13,10 @@ import com.example.android.weatherapp.services.SharedPreferencesProvider
 class Repository(var remoteInterface: RemoteDataSourceInterface,
                  var localInterface: LocalDataSourceInterface,
                  var context: Context?,
-                var sharedPref: SharedPreferencesProvider):RepositoryInterface{
+                 var sharedPref: SharedPreferencesProvider
+):RepositoryInterface{
+
+   // var storedData: LiveData<CurrentWeather>? = null
 
     companion object{
         private var instance: Repository? = null
@@ -20,7 +24,7 @@ class Repository(var remoteInterface: RemoteDataSourceInterface,
                         sharedPref: SharedPreferencesProvider): Repository {
 
             return instance?: Repository(RemoteDataSource(context),LocalDataSource(context),
-                context, sharedPref = sharedPref)
+                context, sharedPref)
         }
     }
 
@@ -36,25 +40,37 @@ class Repository(var remoteInterface: RemoteDataSourceInterface,
     override suspend fun fetchWeatherData(): CurrentWeather? {
         return remoteInterface.fetchWeatherData(sharedPref)
     }
+
+    override fun getAllFavourites(): LiveData<List<Favourite>>? {
+        return localInterface.getAllFavourites()
+    }
+
+    override fun insertFavourite(favourite: Favourite) {
+        localInterface.insertFavourite(favourite)
+    }
+
+    override fun deleteFavourite(lat: String, lon: String) {
+        localInterface.deleteFavourite(lat, lon)
+    }
     //-----------------------------------------------
 
-
     //------------Local Source Functions-----------
-    override suspend fun insert(currentWeather: CurrentWeather?) {
+    override fun insert(currentWeather: CurrentWeather?) {
         localInterface.insert(currentWeather)
     }
 
-    override suspend fun getWeather(): LiveData<CurrentWeather>? {
+//    override suspend fun getWeather(lat: String, lon: String) {
+//        storedData = localInterface.getWeather(lat, lon)!!
+//    }
+
+    override fun getWeather(): LiveData<CurrentWeather>?{
         return localInterface.getWeather()
     }
 
-    override suspend fun deleteWeather() {
+    override fun deleteWeather() {
         localInterface.deleteWeather()
     }
 
-    override suspend fun deleteAll() {
-        localInterface.deleteAll()
-    }
     //---------------------------------------
 
 }

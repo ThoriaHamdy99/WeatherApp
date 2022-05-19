@@ -6,18 +6,26 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.android.weatherapp.model.data.CurrentWeather
+import com.example.android.weatherapp.model.data.Favourite
 
 @Dao
 interface WeatherDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(currentWeather: CurrentWeather?)
+    fun insert(currentWeather: CurrentWeather?)
 
     @Query("SELECT * From CurrentWeather")
     fun getWeather(): LiveData<CurrentWeather>
 
     @Query("Delete from CurrentWeather")
-    suspend fun deleteWeather()
+    fun deleteWeather()
 
-    @Query("Delete from CurrentWeather ")
-    suspend fun deleteAll()
+    @Query("SELECT * From Favourites")
+    fun getAllFavourites(): LiveData<List<Favourite>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFavourite(favourite: Favourite)
+
+    @Query("Delete from Favourites where lat like :lat and lon like :lon")
+    fun deleteFavourite(lat: String, lon: String)
+
 }

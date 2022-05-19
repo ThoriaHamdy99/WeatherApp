@@ -1,4 +1,4 @@
-package com.example.android.weatherapp.ui.home
+package com.example.android.weatherapp.ui.home.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.example.android.weatherapp.R
 import com.example.android.weatherapp.model.data.Hourly
 import java.text.SimpleDateFormat
-import java.util.*
 
 class HomeHourlyAdapter(var context: Context): RecyclerView.Adapter<HomeHourlyAdapter.HourlyViewHolder>() {
 

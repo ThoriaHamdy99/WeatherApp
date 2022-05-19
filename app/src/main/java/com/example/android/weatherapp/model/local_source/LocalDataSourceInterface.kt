@@ -1,11 +1,18 @@
 package com.example.android.weatherapp.model.local_source
 
 import androidx.lifecycle.LiveData
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.android.weatherapp.model.data.CurrentWeather
+import com.example.android.weatherapp.model.data.Favourite
 
 interface LocalDataSourceInterface {
-    suspend fun insert(currentWeather: CurrentWeather?)
+    fun insert(currentWeather: CurrentWeather?)
     fun getWeather(): LiveData<CurrentWeather>?
-    suspend fun deleteWeather()
-    suspend fun deleteAll()
+    fun deleteWeather()
+
+    fun getAllFavourites(): LiveData<List<Favourite>>?
+    fun insertFavourite(favourite: Favourite)
+    fun deleteFavourite(lat: String, lon: String)
 }
