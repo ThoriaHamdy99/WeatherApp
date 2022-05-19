@@ -11,6 +11,6 @@ interface RepositoryInterface {
     fun deleteWeather()
     suspend fun fetchWeatherData(): CurrentWeather?
     fun insertFavourite(favourite: Favourite)
-    fun deleteFavourite(lat: String, lon: String)
+    fun deleteFavourite(countryName: String)
     fun getAllFavourites(): LiveData<List<Favourite>>?
 }

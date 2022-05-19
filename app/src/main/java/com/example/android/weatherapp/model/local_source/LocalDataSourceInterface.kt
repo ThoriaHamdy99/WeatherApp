@@ -14,5 +14,5 @@ interface LocalDataSourceInterface {
 
     fun getAllFavourites(): LiveData<List<Favourite>>?
     fun insertFavourite(favourite: Favourite)
-    fun deleteFavourite(lat: String, lon: String)
+    fun deleteFavourite(countryName: String)
 }

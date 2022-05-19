@@ -49,8 +49,8 @@ class Repository(var remoteInterface: RemoteDataSourceInterface,
         localInterface.insertFavourite(favourite)
     }
 
-    override fun deleteFavourite(lat: String, lon: String) {
-        localInterface.deleteFavourite(lat, lon)
+    override fun deleteFavourite(countryName: String) {
+        localInterface.deleteFavourite(countryName)
     }
     //-----------------------------------------------
 

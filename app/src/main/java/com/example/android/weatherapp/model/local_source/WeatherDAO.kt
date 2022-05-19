@@ -25,7 +25,7 @@ interface WeatherDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavourite(favourite: Favourite)
 
-    @Query("Delete from Favourites where lat like :lat and lon like :lon")
-    fun deleteFavourite(lat: String, lon: String)
+    @Query("Delete from Favourites where countryName like :countryName")
+    fun deleteFavourite(countryName: String)
 
 }

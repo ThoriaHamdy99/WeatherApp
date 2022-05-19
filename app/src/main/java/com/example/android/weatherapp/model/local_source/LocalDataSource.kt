@@ -37,7 +37,7 @@ class LocalDataSource(val context: Context?): LocalDataSourceInterface {
         weatherDao?.insertFavourite(favourite)
     }
 
-    override fun deleteFavourite(lat: String, lon: String) {
-        weatherDao?.deleteFavourite(lat, lon)
+    override fun deleteFavourite(countryName: String) {
+        weatherDao?.deleteFavourite(countryName)
     }
 }
