@@ -11,9 +11,6 @@ class SharedPreferencesProvider(var context: Context?) {
 
         private const val IS_FIRST_TIME_LAUNCH = "IS_FIRST_TIME_LAUNCH"
 
-        private const val IS_THE_INTERNET_ENABLED = "IS_THE_INTERNET_ENABLED"
-        private const val IS_THE_LOCATION_ENABLED = "IS_THE_LOCATION_ENABLED"
-
         private const val IS_AlARM_SWITCHED_ON = "IS_AlARM_SWITCHED_ON"
 
         private const val LANGUAGE_BTN_CHECKED_ID = "LANGUAGE_BTN_CHECKED_ID"
@@ -21,9 +18,6 @@ class SharedPreferencesProvider(var context: Context?) {
 
         private const val LAT_SHARED_PREF = "LAT_SHARED_PREF"
         private const val LONG_SHARED_PREF = "LONG_SHARED_PREF"
-
-        private const val LAT_SHARED_PREF_FAV = "LAT_SHARED_PREF_FAV"
-        private const val LONG_SHARED_PREF_FAV = "LONG_SHARED_PREF_FAV"
 
         private const val UNITS_SHARED_PREF = "UNITS_SHARED_PREF"
         private const val METRIC_UNITS_SHARED_PREF = "METRIC_UNITS_SHARED_PREF"
@@ -44,23 +38,6 @@ class SharedPreferencesProvider(var context: Context?) {
 
     val isFirstTimeLaunch: Boolean
         get()= pref.getBoolean(IS_FIRST_TIME_LAUNCH, true)
-
-
-    fun setIsTheInternetEnabled(isInternetEnabled: Boolean){
-        editor.putBoolean(IS_THE_INTERNET_ENABLED, isInternetEnabled)
-        editor.commit()
-    }
-
-    val isTheInternetEnabled: Boolean
-        get() = pref.getBoolean(IS_THE_INTERNET_ENABLED, false)
-
-    fun setIsTheLocationEnabled(isLocationEnabled: Boolean){
-        editor.putBoolean(IS_THE_LOCATION_ENABLED, isLocationEnabled)
-        editor.commit()
-    }
-
-    val setIsTheLocationEnabled: Boolean
-        get()= pref.getBoolean(IS_THE_LOCATION_ENABLED, false)
 
     fun setUnit(unit:String){
         editor.putString(UNITS_SHARED_PREF,unit)
@@ -98,22 +75,6 @@ class SharedPreferencesProvider(var context: Context?) {
             val location = arrayOfNulls<String>(2)
             val lat = pref.getString(LAT_SHARED_PREF, null)
             val lng = pref.getString(LONG_SHARED_PREF, null)
-            location[0] = lat
-            location[1] = lng
-            return location
-        }
-
-    fun setLatLongFav(latitude: String?, longitude: String?) {
-        editor.putString(LAT_SHARED_PREF_FAV, latitude)
-        editor.putString(LONG_SHARED_PREF_FAV, longitude)
-        editor.commit()
-    }
-
-    val latLongFav: Array<String?>
-        get() {
-            val location = arrayOfNulls<String>(2)
-            val lat = pref.getString(LAT_SHARED_PREF_FAV, null)
-            val lng = pref.getString(LONG_SHARED_PREF_FAV, null)
             location[0] = lat
             location[1] = lng
             return location

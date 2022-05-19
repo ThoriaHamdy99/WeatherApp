@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
 
-@Entity(primaryKeys = ["lon","lat"])
+@Entity(tableName = "CurrentWeather")
 @TypeConverters(Converters::class)
 data class CurrentWeather(
-
+    @PrimaryKey(autoGenerate = false)
+    val id: Int = 0,
     @TypeConverters(Converters::class)
     val alerts: List<Alert>,
     @TypeConverters(Converters::class)

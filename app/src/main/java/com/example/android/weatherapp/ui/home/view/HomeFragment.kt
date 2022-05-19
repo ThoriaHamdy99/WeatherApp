@@ -1,6 +1,10 @@
-package com.example.android.weatherapp.ui.home
+package com.example.android.weatherapp.ui.home.view
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -20,6 +24,8 @@ import com.example.android.weatherapp.model.data.CurrentWeather
 import com.example.android.weatherapp.model.repository.Repository
 import com.example.android.weatherapp.model.repository.RepositoryInterface
 import com.example.android.weatherapp.services.SharedPreferencesProvider
+import com.example.android.weatherapp.ui.home.view_model.HomeViewModel
+import com.example.android.weatherapp.ui.home.view_model.HomeViewModelFactory
 import java.text.SimpleDateFormat
 
 class HomeFragment : Fragment() {
@@ -47,6 +53,7 @@ class HomeFragment : Fragment() {
     lateinit var dailyAdapter: HomeDailyAdapter
     lateinit var hourlyAdapter: HomeHourlyAdapter
 
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,30 +62,62 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initializeUI(view)
         initRecyclerViews()
+        showProgressDialog()
 
         sharedPref = SharedPreferencesProvider(this.context)
         repository = Repository.getInstance(this.activity?.application, sharedPref = sharedPref)
 
-        viewModel = ViewModelProvider(this, HomeViewModelFactory(repository, sharedPref))[HomeViewModel::class.java]
-
-        if(!sharedPref.isTheInternetEnabled && !sharedPref.setIsTheLocationEnabled){
-
+        var isInternetEnabled = isConnectedToInternet()
+        viewModel = ViewModelProvider(this, HomeViewModelFactory(repository))[HomeViewModel::class.java]
+        if (isInternetEnabled){
+            viewModel.currentWeatherLiveData?.observe(viewLifecycleOwner) {
+                Log.i("RETURNED_WEATHER_DATA", "Data")
+                Log.i("RETURNED_WEATHER_DATA", "LAT" + it.lat.toString() + "LON" + it.lon.toString())
+                progressDialog.dismiss()
+                setDataToUI(it)
+                viewModel.insertWeather(it)
+            }
         }
-        viewModel.currentWeatherLiveData?.observe(viewLifecycleOwner) {
-            Log.i("RETURNED_WEATHER_DATA", "anyThing")
-            Log.i("RETURNED_WEATHER_DATA", "LAT" + it.lat.toString() + "LON" + it.lon.toString())
-            Log.i("RETURNED_WEATHER_DATA", "anything")
-            setDataToUI(it)
+        else{
+            Log.i("No_Internet in else", "Data from DB")
+            Log.i("No_Internet in else", "Data from DB")
+            viewModel.getWeatherFromDB()?.observe(viewLifecycleOwner, {
+                progressDialog.dismiss()
+                Log.i("RETURNED_WEATHER_DATA", "Data from DB")
+                Log.i("RETURNED_WEATHER_DATA", "LAT" + it.lat.toString() + "LON" + it.lon.toString())
+                setDataToUI(it)
+            })
         }
-
     }
 
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager = this.activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            when  {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                    return true
+                }
+            }
+        }
+        return false
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     }
@@ -150,5 +189,11 @@ class HomeFragment : Fragment() {
         dailyRecyclerView.adapter = dailyAdapter
 
 
+    }
+    private fun showProgressDialog() {
+        progressDialog = ProgressDialog(this.requireContext())
+        progressDialog.setCancelable(false) // set cancelable to false
+        progressDialog.setMessage("Please Wait") // set message
+        progressDialog.show()
     }
 }

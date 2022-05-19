@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.android.weatherapp.model.data.CurrentWeather
+import com.example.android.weatherapp.model.data.Favourite
 import kotlinx.coroutines.CoroutineScope
 
 class LocalDataSource(val context: Context?): LocalDataSourceInterface {
@@ -16,23 +17,27 @@ class LocalDataSource(val context: Context?): LocalDataSourceInterface {
         weatherDao = weatherDatabase!!.weatherDao()
     }
 
-    @WorkerThread
-    override suspend fun insert(currentWeather: CurrentWeather?) {
+    override fun insert(currentWeather: CurrentWeather?) {
         weatherDao?.insert(currentWeather)
     }
 
-    @WorkerThread
     override fun getWeather(): LiveData<CurrentWeather>? {
         return weatherDao?.getWeather()
     }
 
-    @WorkerThread
-    override suspend fun deleteWeather() {
+    override fun deleteWeather() {
         weatherDao?.deleteWeather()
     }
 
-    @WorkerThread
-    override suspend fun deleteAll() {
-        weatherDao?.deleteAll()
+    override fun getAllFavourites(): LiveData<List<Favourite>>? {
+        return weatherDao?.getAllFavourites()
+    }
+
+    override fun insertFavourite(favourite: Favourite) {
+        weatherDao?.insertFavourite(favourite)
+    }
+
+    override fun deleteFavourite(lat: String, lon: String) {
+        weatherDao?.deleteFavourite(lat, lon)
     }
 }
