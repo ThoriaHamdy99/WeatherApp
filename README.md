@@ -11,12 +11,16 @@
 <p>Delete a favourite</p>
 
 # Tools and Technologies
+<p>Android</p>
+<p>Kptlin</p>
 <p>MVVM design architecture</p>
 <p>Room Database</p>
 <p>Retrofit Api</p>
 <p>Google maps</p>
 <p>Live data</p>
 <p>Coroutines</p>
+<p>Android Studio</p>
+<p>Git</p>
 
 # Made by me (Thoraya Hamdy)
 
