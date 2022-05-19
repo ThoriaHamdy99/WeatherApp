@@ -21,7 +21,7 @@ class FavouritesAdapter(var onClickListener: OnClickListener): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: FavouritesViewHolder, position: Int) {
-        holder.countryName.text = favouriteList.get(position).toString()
+        holder.countryName.text = favouriteList.get(position).countryName
         holder.deleteBtn.setOnClickListener {
             onClickListener.onDeleteBtnClicked(favourite = favouriteList[position])
         }

@@ -32,7 +32,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var sharedPref: SharedPreferencesProvider
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    lateinit var favouriteWeather: CurrentWeather
     lateinit var favourite: Favourite
     lateinit var favouritesViewModel: FavouritesViewModel
 
@@ -63,34 +62,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        var markerOptions : MarkerOptions = MarkerOptions().position(LatLng(26.8206,  30.8025)).title(getAddressAndDateForLocation(26.8206,  30.8025))
+        var markerOptions : MarkerOptions = MarkerOptions().position(LatLng(26.8206,  30.8025)).title(getAddressFromLatLng(26.8206,  30.8025))
 
         mMap.addMarker(markerOptions)
         mMap.setOnMapClickListener {
-            var markerOptions : MarkerOptions = MarkerOptions().position(it).title(getAddressAndDateForLocation(it.latitude, it.longitude))
+            var markerOptions : MarkerOptions = MarkerOptions().position(it).title(getAddressFromLatLng(it.latitude, it.longitude))
             mMap.clear()
             mMap.addMarker(markerOptions)
             mMap.animateCamera(CameraUpdateFactory.newLatLng(it))
-            favourite = Favourite(it.latitude, it.longitude, getAddressAndDateForLocation(it.latitude,it.longitude))
+            favourite = Favourite(it.latitude, it.longitude, getAddressFromLatLng(it.latitude,it.longitude))
             onSaveToFavouriteBtn(favourite)
         }
     }
 
-    private fun getAddressAndDateForLocation(lat : Double, lon : Double) : String{
-        //GPSLat GPSLong
-        var addressGeocoder : Geocoder = Geocoder(this, Locale.getDefault())
-        try {
-            var myAddress : List<Address> = addressGeocoder.getFromLocation(lat, lon, 2)
-            if(myAddress.isNotEmpty()){
-                return "${myAddress[0].subAdminArea} ${myAddress[0].adminArea}"
-            }
-        }catch (e : IOException){
-            e.printStackTrace()
+    fun getAddressFromLatLng(lat:Double,longg:Double) : String {
+        var geocoder = Geocoder(this , Locale.getDefault())
+
+        var addresses: List<Address> = geocoder.getFromLocation(lat, longg, 1)
+
+        if (addresses.size > 0) {
+            return addresses.get(0).getAddressLine(0)
         }
         return ""
     }
 
-    private fun onSaveToFavouriteBtn(favourite: Favourite) {
+        private fun onSaveToFavouriteBtn(favourite: Favourite) {
         var confirmDialog = AlertDialog.Builder(this)
         confirmDialog.setMessage("Are you sure You wanna save to favourites?")
             .setCancelable(true)
@@ -99,6 +95,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 favouritesViewModel.insertFavourite(favourite)
                 var sharedPref = SharedPreferencesProvider(this)
                 sharedPref.setLatLong(favourite.lat.toString(), favourite.lon.toString())
+                finish()
             }
             .setNegativeButton("Cancel"){
                     dialogInterface, i ->  dialogInterface.cancel()

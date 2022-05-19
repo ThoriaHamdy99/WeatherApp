@@ -25,7 +25,7 @@ class FavouritesViewModel(var repository: RepositoryInterface): ViewModel() {
 
     fun deleteFavourite(weather: Favourite){
         viewModelScope.launch(Dispatchers.IO){
-            repository.deleteFavourite(weather.lat.toString(), weather.lon.toString())
+            repository.deleteFavourite(weather.countryName)
         }
     }
 }

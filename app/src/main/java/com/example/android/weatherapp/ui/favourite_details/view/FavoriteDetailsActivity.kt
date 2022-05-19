@@ -37,6 +37,7 @@ class FavoriteDetailsActivity : AppCompatActivity() {
         sharedPref = SharedPreferencesProvider(this)
         repository = Repository.getInstance(this?.application, sharedPref = sharedPref)
         initRecyclerViews()
+
         viewModel = ViewModelProvider(this, HomeViewModelFactory(repository))[HomeViewModel::class.java]
         viewModel.currentWeatherLiveData.observe(this){
             setDataToUI(it)
