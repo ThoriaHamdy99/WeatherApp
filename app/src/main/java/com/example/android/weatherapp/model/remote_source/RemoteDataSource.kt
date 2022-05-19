@@ -11,10 +11,16 @@ class RemoteDataSource(val context: Context?): RemoteDataSourceInterface {
 
     private val API_KEY = "fc9624bf360991a83e6c82fa2996bec3"
 
-    override suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather? {
+    override suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider, isFavourite: Boolean): CurrentWeather? {
 
-        val latLong = sharedPref.latLong
-
+        var latLong: Array<String?>
+        if (isFavourite) {
+            latLong = sharedPref.latLongFav
+            Log.i("Remote_Source", "favourite late = ${latLong[0].toString()}")
+        } else {
+            latLong = sharedPref.latLong
+            Log.i("Remote_Source", "home late = ${latLong[0].toString()}")
+        }
         val latPref = latLong[0].toString()
         val lonPref = latLong[1].toString()
         val  unit = sharedPref.getUnit.toString()

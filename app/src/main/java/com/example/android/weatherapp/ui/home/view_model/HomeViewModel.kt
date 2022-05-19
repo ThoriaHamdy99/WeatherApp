@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.weatherapp.model.data.CurrentWeather
 import com.example.android.weatherapp.model.repository.RepositoryInterface
-import com.example.android.weatherapp.services.SharedPreferencesProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,16 +16,15 @@ class HomeViewModel(var repository: RepositoryInterface) : ViewModel() {
     private var currentWeatherMutableLiveData : MutableLiveData<CurrentWeather> = MutableLiveData()
     var currentWeatherLiveData : LiveData<CurrentWeather> = currentWeatherMutableLiveData
 
-    init {
-        fetchWeatherData()
-    }
-    private fun fetchWeatherData(){
-        viewModelScope.launch(Dispatchers.IO) {
-            var response = repository.fetchWeatherData()
-            Log.i("RESPONSE_VIEW_MODEL", response.toString())
-            currentWeatherMutableLiveData?.postValue(repository.fetchWeatherData())
-        }
+//    init {
+//        fetchWeatherData()
+//    }
 
+    fun fetchWeatherData(isFavourite: Boolean): LiveData<CurrentWeather>{
+        viewModelScope.launch(Dispatchers.IO) {
+            currentWeatherMutableLiveData?.postValue(repository.fetchWeatherData(isFavourite))
+        }
+        return currentWeatherLiveData
     }
 
     fun insertWeather(weather: CurrentWeather){
