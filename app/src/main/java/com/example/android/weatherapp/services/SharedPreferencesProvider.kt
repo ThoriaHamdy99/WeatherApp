@@ -12,12 +12,16 @@ class SharedPreferencesProvider(var context: Context?) {
         private const val IS_FIRST_TIME_LAUNCH = "IS_FIRST_TIME_LAUNCH"
 
         private const val IS_AlARM_SWITCHED_ON = "IS_AlARM_SWITCHED_ON"
+        private const val IS_FAVOURITE = "IS_FAVOURITE"
 
         private const val LANGUAGE_BTN_CHECKED_ID = "LANGUAGE_BTN_CHECKED_ID"
         private const val UNITS_BTN_CHECKED_ID = "UNITS_BTN_CHECKED_ID"
 
         private const val LAT_SHARED_PREF = "LAT_SHARED_PREF"
         private const val LONG_SHARED_PREF = "LONG_SHARED_PREF"
+
+        private const val LAT_SHARED_FAV = "LAT_SHARED_FAV"
+        private const val LONG_SHARED_FAV = "LONG_SHARED_FAV"
 
         private const val UNITS_SHARED_PREF = "UNITS_SHARED_PREF"
         private const val METRIC_UNITS_SHARED_PREF = "METRIC_UNITS_SHARED_PREF"
@@ -38,6 +42,14 @@ class SharedPreferencesProvider(var context: Context?) {
 
     val isFirstTimeLaunch: Boolean
         get()= pref.getBoolean(IS_FIRST_TIME_LAUNCH, true)
+
+    fun setIsFavourite(isFavourite: Boolean){
+        editor.putBoolean(IS_FAVOURITE, isFavourite)
+        editor.commit()
+    }
+
+    val isFavourite: Boolean
+        get()= pref.getBoolean(IS_FAVOURITE, false)
 
     fun setUnit(unit:String){
         editor.putString(UNITS_SHARED_PREF,unit)
@@ -75,6 +87,22 @@ class SharedPreferencesProvider(var context: Context?) {
             val location = arrayOfNulls<String>(2)
             val lat = pref.getString(LAT_SHARED_PREF, null)
             val lng = pref.getString(LONG_SHARED_PREF, null)
+            location[0] = lat
+            location[1] = lng
+            return location
+        }
+
+    fun setLatLongFav(latitude: String?, longitude: String?) {
+        editor.putString(LAT_SHARED_FAV, latitude)
+        editor.putString(LONG_SHARED_FAV, longitude)
+        editor.commit()
+    }
+
+    val latLongFav: Array<String?>
+        get() {
+            val location = arrayOfNulls<String>(2)
+            val lat = pref.getString(LAT_SHARED_FAV, null)
+            val lng = pref.getString(LONG_SHARED_FAV, null)
             location[0] = lat
             location[1] = lng
             return location

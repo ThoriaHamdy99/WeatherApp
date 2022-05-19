@@ -1,5 +1,6 @@
 package com.example.android.weatherapp.ui.favourites.view
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +43,7 @@ class FavouritesFragment : Fragment(), OnClickListener {
     lateinit var favouritesAdapter: FavouritesAdapter
     lateinit var viewModel: FavouritesViewModel
     lateinit var addFavouriteBtn: FloatingActionButton
+    lateinit var NoFavouriteTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +69,7 @@ class FavouritesFragment : Fragment(), OnClickListener {
         initRecyclerView()
         Log.i("Favourite_Fragment", "initRecyclerView")
         sharedPref = SharedPreferencesProvider(this.context)
+        sharedPref.setIsFavourite(true)
         repository = Repository.getInstance(this.activity?.application, sharedPref = sharedPref)
         viewModel = ViewModelProvider(this, FavouritesViewModelFactory(repository)).get(FavouritesViewModel::class.java)
         getFavourites()
@@ -111,7 +115,7 @@ class FavouritesFragment : Fragment(), OnClickListener {
 
     }
 
-    fun onClickAddFavouriteBtn(){
+    private fun onClickAddFavouriteBtn(){
         addFavouriteBtn.setOnClickListener{
             var intent = Intent(requireContext(), MapsActivity::class.java)
             startActivity(intent)
@@ -132,13 +136,28 @@ class FavouritesFragment : Fragment(), OnClickListener {
     }
 
     override fun onDeleteBtnClicked(favourite: Favourite) {
-        viewModel.deleteFavourite(favourite)
+        var confirmDialog = AlertDialog.Builder(this.requireContext())
+        confirmDialog.setMessage("Are you sure You wanna delete this favourite?")
+            .setCancelable(true)
+            .setPositiveButton("Ok"){
+                    dialogInterface, i ->
+                viewModel.deleteFavourite(favourite)
+                favouritesAdapter.notifyDataSetChanged()
+            }
+            .setNegativeButton("Cancel"){
+                    dialogInterface, i ->  dialogInterface.cancel()
+            }
+        val alert = confirmDialog.create()
+        alert.setTitle("Delete Favourite")
+        alert.show()
     }
+
 
     override fun onFavouriteClicked(favourite: Favourite) {
         if(isConnectedToInternet()){
             var sharedPref = SharedPreferencesProvider(this.requireContext())
-            sharedPref.setLatLong(favourite.lat.toString(), favourite.lon.toString())
+            sharedPref.setLatLongFav(favourite.lat.toString(), favourite.lon.toString())
+            sharedPref.setIsFavourite(true)
             var intent : Intent = Intent(activity, FavoriteDetailsActivity::class.java)
             intent.putExtra("fromFavToDetails", favourite)
             startActivity(intent)

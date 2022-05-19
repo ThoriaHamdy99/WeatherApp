@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/favourite_details_CoordinatorLayout"
+    android:visibility="gone"
     android:background="@color/bodyColor2"
     tools:context=".ui.favourite_details.view.FavoriteDetailsActivity">
 

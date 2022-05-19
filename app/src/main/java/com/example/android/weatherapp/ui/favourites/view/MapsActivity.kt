@@ -7,6 +7,7 @@ import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -62,16 +63,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        var markerOptions : MarkerOptions = MarkerOptions().position(LatLng(26.8206,  30.8025)).title(getAddressFromLatLng(26.8206,  30.8025))
+        var markerOptions : MarkerOptions = MarkerOptions().position(LatLng(30.0504712,  31.1601227)).title(getAddressFromLatLng(30.0504712,  31.1601227))
 
         mMap.addMarker(markerOptions)
         mMap.setOnMapClickListener {
-            var markerOptions : MarkerOptions = MarkerOptions().position(it).title(getAddressFromLatLng(it.latitude, it.longitude))
-            mMap.clear()
-            mMap.addMarker(markerOptions)
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(it))
-            favourite = Favourite(it.latitude, it.longitude, getAddressFromLatLng(it.latitude,it.longitude))
-            onSaveToFavouriteBtn(favourite)
+            var name = getAddressFromLatLng(it.latitude, it.longitude)
+            if(name.isNotEmpty()) {
+                markerOptions = MarkerOptions().position(it).title(name)
+                mMap.clear()
+                mMap.addMarker(markerOptions)
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(it))
+                favourite = Favourite(it.latitude, it.longitude, getAddressFromLatLng(it.latitude,it.longitude))
+                onSaveToFavouriteBtn(favourite)
+            }
+            else{
+                Toast.makeText(this, "Invalid Location", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -94,7 +101,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     dialogInterface, i ->
                 favouritesViewModel.insertFavourite(favourite)
                 var sharedPref = SharedPreferencesProvider(this)
-                sharedPref.setLatLong(favourite.lat.toString(), favourite.lon.toString())
+                sharedPref.setLatLongFav(favourite.lat.toString(), favourite.lon.toString())
                 finish()
             }
             .setNegativeButton("Cancel"){

@@ -6,5 +6,5 @@ import com.example.android.weatherapp.services.SharedPreferencesProvider
 import retrofit2.Response
 
 interface RemoteDataSourceInterface {
-    suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider): CurrentWeather?
+    suspend fun fetchWeatherData(sharedPref: SharedPreferencesProvider, isFavourite: Boolean): CurrentWeather?
 }

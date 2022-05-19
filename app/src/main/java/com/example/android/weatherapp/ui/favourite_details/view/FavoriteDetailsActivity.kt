@@ -1,10 +1,13 @@
 package com.example.android.weatherapp.ui.favourite_details.view
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -21,6 +24,7 @@ import java.text.SimpleDateFormat
 
 class FavoriteDetailsActivity : AppCompatActivity() {
 
+    private lateinit var progressDialog: ProgressDialog
     private lateinit var viewModel: HomeViewModel
     private lateinit var sharedPref: SharedPreferencesProvider
     private lateinit var repository: RepositoryInterface
@@ -28,7 +32,7 @@ class FavoriteDetailsActivity : AppCompatActivity() {
     lateinit var hourlyAdapter: HomeHourlyAdapter
 
     private lateinit var binding: ActivityFavoriteDetailsBinding
-
+    private lateinit var coordinatorLayout: CoordinatorLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,11 +41,21 @@ class FavoriteDetailsActivity : AppCompatActivity() {
         sharedPref = SharedPreferencesProvider(this)
         repository = Repository.getInstance(this?.application, sharedPref = sharedPref)
         initRecyclerViews()
-
+        showProgressDialog()
+        sharedPref.setIsFavourite(true)
         viewModel = ViewModelProvider(this, HomeViewModelFactory(repository))[HomeViewModel::class.java]
-        viewModel.currentWeatherLiveData.observe(this){
+
+        viewModel.fetchWeatherData(true).observe(this){
+            progressDialog.dismiss()
+            binding.favouriteDetailsCoordinatorLayout.visibility = LinearLayout.VISIBLE
             setDataToUI(it)
         }
+    }
+    private fun showProgressDialog() {
+        progressDialog = ProgressDialog(this)
+        progressDialog.setCancelable(false) // set cancelable to false
+        progressDialog.setMessage("Please Wait") // set message
+        progressDialog.show()
     }
 
     private fun setDataToUI(currentWeather: CurrentWeather) {

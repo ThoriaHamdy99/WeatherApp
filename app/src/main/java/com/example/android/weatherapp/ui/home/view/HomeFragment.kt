@@ -13,9 +13,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.motion.widget.Debug
+import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -54,6 +58,7 @@ class HomeFragment : Fragment() {
     lateinit var hourlyAdapter: HomeHourlyAdapter
 
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var homeFrameLayout: FrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +69,12 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        sharedPref.setIsFavourite(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sharedPref.setIsFavourite(false)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -75,15 +86,17 @@ class HomeFragment : Fragment() {
         showProgressDialog()
 
         sharedPref = SharedPreferencesProvider(this.context)
+        sharedPref.setIsFavourite(false)
         repository = Repository.getInstance(this.activity?.application, sharedPref = sharedPref)
 
         var isInternetEnabled = isConnectedToInternet()
         viewModel = ViewModelProvider(this, HomeViewModelFactory(repository))[HomeViewModel::class.java]
         if (isInternetEnabled){
-            viewModel.currentWeatherLiveData?.observe(viewLifecycleOwner) {
+            viewModel.fetchWeatherData(false).observe(viewLifecycleOwner) {
                 Log.i("RETURNED_WEATHER_DATA", "Data")
                 Log.i("RETURNED_WEATHER_DATA", "LAT" + it.lat.toString() + "LON" + it.lon.toString())
                 progressDialog.dismiss()
+                homeFrameLayout.visibility = LinearLayout.VISIBLE
                 setDataToUI(it)
                 viewModel.insertWeather(it)
             }
@@ -93,6 +106,7 @@ class HomeFragment : Fragment() {
             Log.i("No_Internet in else", "Data from DB")
             viewModel.getWeatherFromDB()?.observe(viewLifecycleOwner, {
                 progressDialog.dismiss()
+                homeFrameLayout.visibility = LinearLayout.VISIBLE
                 Log.i("RETURNED_WEATHER_DATA", "Data from DB")
                 Log.i("RETURNED_WEATHER_DATA", "LAT" + it.lat.toString() + "LON" + it.lon.toString())
                 setDataToUI(it)
@@ -128,7 +142,7 @@ class HomeFragment : Fragment() {
         homeWeatherImage = view.findViewById(R.id.home_weather_image)
         homeWeatherDate = view.findViewById(R.id.home_weather_date)
         homeWeatherStatus = view.findViewById(R.id.home_weather_status)
-
+        homeFrameLayout = view.findViewById(R.id.home_Frame_Layout)
 
         homePressureStatus = view.findViewById(R.id.home_pressure_status)
         homeHumidityStatus = view.findViewById(R.id.home_humidity_status)

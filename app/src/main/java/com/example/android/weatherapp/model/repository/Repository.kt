@@ -37,8 +37,8 @@ class Repository(var remoteInterface: RemoteDataSourceInterface,
 
 
     //-----------Remote Source Functions------------
-    override suspend fun fetchWeatherData(): CurrentWeather? {
-        return remoteInterface.fetchWeatherData(sharedPref)
+    override suspend fun fetchWeatherData(isFavourite: Boolean): CurrentWeather? {
+        return remoteInterface.fetchWeatherData(sharedPref, isFavourite)
     }
 
     override fun getAllFavourites(): LiveData<List<Favourite>>? {

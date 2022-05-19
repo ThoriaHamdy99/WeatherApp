@@ -91,7 +91,7 @@ class SplashActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun isLocationEnabled(): Boolean {
+    fun isLocationEnabled(): Boolean {
         val locationManager = this.application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
@@ -112,7 +112,7 @@ class SplashActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun isConnectedToInternet(): Boolean {
+    fun isConnectedToInternet(): Boolean {
         val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
@@ -132,7 +132,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation(): Unit{
+    fun getLocation(): Unit{
         if (checkPremissions()) {
             if (isLocationEnabled()) {
                 fusedLocationClient.lastLocation

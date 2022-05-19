@@ -21,7 +21,5 @@ data class CurrentWeather(
     val hourly: List<Hourly>,
     val lat: Double,
     val lon: Double,
-    val timezone: String,
-    @SerializedName("timezone_offset")
-    val timezoneOffset: Int
+    val timezone: String
 )
