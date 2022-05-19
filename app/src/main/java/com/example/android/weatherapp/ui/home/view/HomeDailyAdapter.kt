@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android.weatherapp.R
 import com.example.android.weatherapp.model.data.Daily
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeDailyAdapter(var context: Context): RecyclerView.Adapter<HomeDailyAdapter.DailyViewHolder>() {
 
@@ -26,12 +29,9 @@ class HomeDailyAdapter(var context: Context): RecyclerView.Adapter<HomeDailyAdap
     }
 
     override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
-//        if (position <= 11){
-//            holder.hour.text = "${position + 1} AM"
-//        }
-//        else{
-//            holder.hour.text = "${position + 1} PM"
-//        }
+
+
+        holder.title.text = getDayName(daily[position].dt.toLong())
         holder.temp.text = daily[position].temp.day.toString()
         holder.status.text = daily[position].weather[0].description
         val urlIcon = "https://openweathermap.org/img/wn/${daily[position].weather[0].icon}@2x.png"
@@ -39,8 +39,10 @@ class HomeDailyAdapter(var context: Context): RecyclerView.Adapter<HomeDailyAdap
 
     }
 
-    private fun getDayName(){
-
+    private fun getDayName(dt : Long): String{
+        var date: Date = Date(dt * 1000)
+        var dateFormat : DateFormat = SimpleDateFormat("EEEE")
+        return dateFormat.format(date)
     }
 
     override fun getItemCount(): Int {
